@@ -11,7 +11,6 @@ class s3Service:
         data = pd.read_csv('s3key.csv')
         self.access_key = data['Access key ID'].to_list()[0]
         self.secret_key = data['Secret access key'].to_list()[0]
-        print("accesskey = ",self.access_key,"secretkey = ",self.secret_key)
         self.client = boto3.client(
             's3',
             aws_access_key_id = self.access_key,
@@ -27,7 +26,7 @@ class s3Service:
                 "Principal":"*",
                 "Resource": [f"arn:aws:s3:::{name}/*"],
                 "Condition": {
-                    "StringNotLike":{
+                    "StringLike":{
                         "aws:userId":[
                             "AROAEXAMPLEID:awesome-winter",
                             "AIDAEXAMPLEID",
